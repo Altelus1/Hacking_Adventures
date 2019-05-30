@@ -44,3 +44,7 @@ for i in range(len(contents)):
 for item in ordering:
 	print(item)
 		
+"""
+['Now that the party is jumping\n', '170:53', 50]
+The hex string on 170 xored with character '5' 
+"""

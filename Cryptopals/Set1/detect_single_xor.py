@@ -46,5 +46,5 @@ for item in ordering:
 		
 """
 ['Now that the party is jumping\n', '170:53', 50]
-The hex string on 170 xored with character '5' 
+The hex string on 170 xored with character '5' (dec value is 53) with a score of 50 
 """

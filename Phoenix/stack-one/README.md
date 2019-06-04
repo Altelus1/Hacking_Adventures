@@ -38,10 +38,10 @@ insertion of values.
 
 ![](https://raw.githubusercontent.com/Altelus1/Hacking_Adventures/master/Phoenix/stack-one/images/3.png)
 
-```b = 0x62
-Y = 0x59
-l = 0x6c
-I = 0x49```
+```b = 0x62``` <br/>
+```Y = 0x59``` <br/>
+```l = 0x6c``` <br/>
+```I = 0x49``` <br/>
 
 Thank you for reading!
 See you in stack-two

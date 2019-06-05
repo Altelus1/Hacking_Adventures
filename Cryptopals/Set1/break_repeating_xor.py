@@ -88,3 +88,8 @@ for item in scores:
 	
 	print(item[0]+"\nmessage : "+decrypted)
 
+"""
+NEED SOME TWEAKING
+STILL NEED TO INVESTIGATE TO MAKE THIS SCRIPT MORE ACCURATE
+(well it's already accurate to begin with lol
+"""

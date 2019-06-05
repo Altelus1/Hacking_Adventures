@@ -91,5 +91,5 @@ for item in scores:
 """
 NEED SOME TWEAKING
 STILL NEED TO INVESTIGATE TO MAKE THIS SCRIPT MORE ACCURATE
-(well it's already accurate to begin with lol
+(well it's *NOT* already accurate to begin with lol
 """

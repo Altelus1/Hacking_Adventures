@@ -19,14 +19,27 @@ def get_keysize_block(str1, keysize):
 		
 	return ret_blocks
 	
+def reconstruct_blocks(blocks):
+	LENGTH = len(blocks)
+	LENGTH_STR = len(blocks[0])
+	ret_blocks = []
+	for i in range(LENGTH_STR):
+		str_builder = ""
+		for j in range(LENGTH):
+			str_builder += blocks[j][i]
+		ret_blocks.append(str_builder)
+			
+	return ''.join(ret_blocks)
+			
 filename = "to_break_2.txt"
 
 with open(filename, "r") as rf:
 	contents = rf.read()
-contents = base64.b64decode(contents).decode('latin-1').replace("\n", "")
+contents = contents.replace("\n","")
+contents = base64.b64decode(contents).decode('latin-1')
 #print(contents)
 hamm_avg = []
-navg_threshhold = 3.2
+navg_threshhold = 3.3
 top_navg = []
 
 #for keysize in range(2,int(len(contents)/2)):
@@ -35,10 +48,13 @@ for keysize in range(2,41):
 	keysize_blocks = get_keysize_block(contents, keysize)
 	#print(keysize_blocks)
 	hamm_distances = 0
-	for counter in range(len(keysize_blocks)-1):
+	blocks_needed  = 5
+	if len(keysize_blocks) <= 5:
+		blocks_needed = len(keysize_blocks)-1
+	for counter in range(blocks_needed):
 		hamm_distances += get_hamming_distance(keysize_blocks[counter],keysize_blocks[counter+1])
 	
-	hamm_distances = hamm_distances/(len(keysize_blocks)-1)
+	hamm_distances = hamm_distances/blocks_needed
 	hamm_avg.append([keysize, hamm_distances, hamm_distances/keysize, keysize_blocks])
 	
 print("Keysize\t\tAVG_HAMM\t\t\tNormAVG_HAMM: \nNAVG Threshold: "+str(navg_threshhold)+"\n-----------------------------------------------------------------------")
@@ -69,27 +85,24 @@ for i in range(len(top_navg)):
 		selected = '\x00'
 		selected_decoded = ""
 		score = 0
-		for j in range(32, 123):
+		for j in range(32, 127):
 			decoded = DSX.decode_xor(item.encode('latin-1'), hex(j)[2:].zfill(2))
 			curr_score = DSX.score_it(decoded)
 			if curr_score > score:
+				#print(chr(j)+"\n")
 				selected = chr(j)
 				score = curr_score
 				selected_decoded = decoded
+		#print("---->"+selected)
 		nbyte_decrypted.append(selected_decoded)
 		prob_key += selected
-	
+	#print("")
 	scores.append(["key : "+prob_key, nbyte_decrypted])
 	
 for item in scores:
-	decrypted = ""
-	for i in range(len(item[1][0])):
-		decrypted += ''.join([byte_decrypted[i] for byte_decrypted in item[1]])
+	decrypted = reconstruct_blocks(item[1])
+	#for i in range(len(item[1][0])):
+	#	decrypted += ''.join([byte_decrypted[i] for byte_decrypted in item[1]])
 	
 	print(item[0]+"\nmessage : "+decrypted)
 
-"""
-NEED SOME TWEAKING
-STILL NEED TO INVESTIGATE TO MAKE THIS SCRIPT MORE ACCURATE
-(well it's *NOT* already accurate to begin with lol
-"""

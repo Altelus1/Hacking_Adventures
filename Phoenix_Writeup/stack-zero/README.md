@@ -2,7 +2,7 @@
 
 let's start looking at the source code:
 
-![](https://raw.githubusercontent.com/Altelus1/Hacking_Adventures/master/Phoenix/stack-zero/images/1.png)
+![](https://raw.githubusercontent.com/Altelus1/Phoenix_Writeup/master/stack-zero/images/1.png)
 
 We can see a struct is defined inside the main function.
 The ```BANNER``` is printed.

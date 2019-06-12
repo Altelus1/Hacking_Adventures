@@ -17,3 +17,7 @@ for counter in range(len(byte_stream)-4, -1, -1):
 	byte_stream = byte_stream[0:counter]+to_proc.to_bytes(4, byteorder='little')+byte_stream[counter+4:]
 
 print(byte_stream)
+
+'''
+From PicoCTF 2018 challenge "special-pw" under Reverse Engineering
+'''

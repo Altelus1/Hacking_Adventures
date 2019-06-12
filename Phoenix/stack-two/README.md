@@ -1,3 +1,0 @@
-## stack-two
-
-# PWNING...

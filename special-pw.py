@@ -1,9 +1,7 @@
 
 byte_stream = '\x7b\x18\xa6\x36\xda\x3b\x2b\xa6\xfe\xcb\x82\xae\x96\xff\x9f\x46\x8f\x36\xa7\xaf\xfe\x93\x8e\x3f\x46\xa7\xff\x82\xcf\xce\xb3\x97\x17\x1a\xa7\x36\xef\x2b\x8a\xed'
 
-print(byte_stream)
 byte_stream = byte_stream.encode('latin-1')
-print(len(byte_stream))
 
 for counter in range(len(byte_stream)-4, -1, -1):
 	to_proc = int.from_bytes(byte_stream[counter:counter+4], byteorder="little")

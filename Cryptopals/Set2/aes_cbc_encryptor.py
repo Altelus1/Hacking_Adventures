@@ -20,6 +20,20 @@ def xor_two_blocks(block1, block2, block_size):
 
     return xored_block
 
+def encrypt_cbc(plain_blocks):
+	plbl_length = len(plain_blocks)
+	plain_blocks[plbl_length-1] = p7p.pkcs7_padding(plain_blocks[plbl_length-1], block_size)
+	cipher_blocks = []
+	cipher_block = IV
+
+	for plain_block in plain_blocks:
+		cipher_block = encrypt(aes_obj, xor_two_blocks(plain_block, cipher_block, block_size))
+		cipher_blocks.append(cipher_block.decode('latin-1'))
+
+	ciphertext = None
+	ciphertext=''.join(cipher_blocks).encode('latin-1')
+	ciphertext = base64.b64encode(ciphertext)
+
 IV = b'\x00'*16
 
 filename = "10_plain.txt"
@@ -35,19 +49,10 @@ aes_obj = AES.new(key, AES.MODE_ECB)
 plain_blocks = chop_blocks(contents, block_size)
 #print(plain_blocks)
 
-plbl_length = len(plain_blocks)
-plain_blocks[plbl_length-1] = p7p.pkcs7_padding(plain_blocks[plbl_length-1], block_size)
-cipher_blocks = []
-cipher_block = IV
+encrypted = encrypt_cbc(plain_blocks)
 
-for plain_block in plain_blocks:
-    cipher_block = encrypt(aes_obj, xor_two_blocks(plain_block, cipher_block, block_size))
-    cipher_blocks.append(cipher_block.decode('latin-1'))
 
-ciphertext = None
-ciphertext=''.join(cipher_blocks).encode('latin-1')
-ciphertext = base64.b64encode(ciphertext)
-print(ciphertext.decode('latin-1'))
+print(encrypted.decode('latin-1'))
 
 
 

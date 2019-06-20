@@ -53,17 +53,7 @@ s = '01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 x = 'T10101Z103010102'
 
 print(is_valid(x))
-#print(is_valid(x[::-1]))
-#x = '0123450123450123456'
-#perms = [''.join(p) for p in permutations(x)]
 
-#print('Starting bruteforcing')
-
-#for perm in perms:
-#	if is_valid(perms):
-#		print(perm)
-#		break
-		
 		
 		
 		

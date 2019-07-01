@@ -1,8 +1,7 @@
-#
-#import stuff here
-#
+import base64
+import aes_cbc_encryptor as ACE
 
-filename = "10_plain.txt"
+filename = "decrypted.txt" #this is also 10_plain.txt
 contents = ""
 key = "YELLOW SUBMARINE"
 block_size = 16
@@ -11,11 +10,7 @@ with open(filename, "r") as rf:
     contents = rf.read()
 
 contents = contents.encode('latin-1')
-aes_obj = AES.new(key, AES.MODE_ECB)
-plain_blocks = chop_blocks(contents, block_size)
-#print(plain_blocks)
 
-encrypted = encrypt_cbc(plain_blocks)
-
+encrypted = ACE.encrypt_cbc(contents, key)
 
 print(encrypted.decode('latin-1'))

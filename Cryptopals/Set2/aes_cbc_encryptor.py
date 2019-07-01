@@ -20,7 +20,7 @@ def xor_two_blocks(block1, block2, block_size):
 
     return xored_block
 
-def encrypt_cbc(plain_blocks):
+def encrypt_cbc(plain_blocks, IV = b'\x00'*16):
 	plbl_length = len(plain_blocks)
 	plain_blocks[plbl_length-1] = p7p.pkcs7_padding(plain_blocks[plbl_length-1], block_size)
 	cipher_blocks = []
@@ -33,26 +33,6 @@ def encrypt_cbc(plain_blocks):
 	ciphertext = None
 	ciphertext=''.join(cipher_blocks).encode('latin-1')
 	ciphertext = base64.b64encode(ciphertext)
-
-IV = b'\x00'*16
-
-filename = "10_plain.txt"
-contents = ""
-key = "YELLOW SUBMARINE"
-block_size = 16
-
-with open(filename, "r") as rf:
-    contents = rf.read()
-
-contents = contents.encode('latin-1')
-aes_obj = AES.new(key, AES.MODE_ECB)
-plain_blocks = chop_blocks(contents, block_size)
-#print(plain_blocks)
-
-encrypted = encrypt_cbc(plain_blocks)
-
-
-print(encrypted.decode('latin-1'))
 
 
 

@@ -28,7 +28,7 @@ def decrypt_cbc(encrypted_message, key, IV = b'\x00'*16, block_size=16):
 
     for i in range(len(cipher_blocks)-1,0,-1):
         plain_block = xor_two_blocks(cipher_blocks[i-1] ,decrypt(aes_obj, cipher_blocks[i]), block_size)
-        plain_blocks.insert(0, plain_block.decode('latin-1')) 
+        plain_blocks.insert(0, plain_block) 
 
     return plain_blocks 
 

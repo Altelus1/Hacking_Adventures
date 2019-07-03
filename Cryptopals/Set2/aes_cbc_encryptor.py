@@ -32,10 +32,10 @@ def encrypt_cbc(plain_message, key, IV = b'\x00'*16, block_size=16):
 
     for plain_block in plain_blocks:
         cipher_block = encrypt(aes_obj, xor_two_blocks(plain_block, cipher_block, block_size))
-        cipher_blocks.append(cipher_block.decode('latin-1'))
+        cipher_blocks.append(cipher_block)
 
     ciphertext = None
-    ciphertext=''.join(cipher_blocks).encode('latin-1')
+    ciphertext=b''.join(cipher_blocks)
     ciphertext = base64.b64encode(ciphertext)
 
     return ciphertext

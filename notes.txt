@@ -1,0 +1,31 @@
+Enumeration:
+
+a) Port Scanning
+- nmap -sV -sC (-sS) -p 1-10000 -v [First 10000 ports with default scripts and service versions. Optional for SYN Stealth Scan]
+- nmap -p- -v -A [Full port Agressive scan and OS detection]
+
+b) Service Enumeration
+
+- Port 21 / FTP
+- cmd: ftp <ip-address>
+- Check for anonymous logins
+
+- Port 80 / HTTP
+- Web Enumeration
+ ...
+
+- Port 445 / SMB (windows)
+- To check if we can see Sharenames:
+  - smbclient -L <ip-address>
+- To login with username, password, and sharename
+  - smbclient '\\<ip-address>\<sharename>' --user=<username> -p
+- To mount to local directory the smb share
+  - mount -t cifs -o username=<username> //<ip-address>/<sharename> <to mount directory>
+- To unmount
+  - umount -a -t cifs -o
+
+
+
+
+
+
